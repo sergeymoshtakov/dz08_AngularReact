@@ -1,0 +1,28 @@
+.error input{
+    border-color: red;
+}
+
+.error p{
+    color: red;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+  
+.btn-success {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+  
+.btn-success:hover {
+    background-color: darkgreen;
+}

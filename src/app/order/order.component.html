@@ -1,0 +1,68 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <fieldset [formGroupName]="'user'">
+        <div class="form-group" [ngClass]="{
+            'error':form.get('user.email')?.invalid && form.get('user.email')?.touched
+            }">
+          <label>Email*</label>
+          <input type="email" class="form-control" [formControlName]="'email'">
+          <p *ngIf="form.get('user.email')?.invalid && form.get('user.email')?.touched">Wrong Email</p>
+        </div>
+        <div class="form-group" [ngClass]="{
+            'error':form.get('user.firstname')?.invalid && form.get('user.firstname')?.touched
+            }">
+          <label>First Name*</label>
+          <input type="text" class="form-control" [formControlName]="'firstname'">
+          <p *ngIf="form.get('user.firstname')?.invalid && form.get('user.firstname')?.touched">Wrong Name</p>
+        </div>
+        <div class="form-group" [ngClass]="{
+            'error':form.get('user.lastname')?.invalid && form.get('user.lastname')?.touched
+            }">
+            <label>Last Name*</label>
+            <input type="text" class="form-control" [formControlName]="'lastname'">
+            <p *ngIf="form.get('user.lastname')?.invalid && form.get('user.lastname')?.touched">Wrong Surname</p>
+        </div>
+        <div class="form-group" [ngClass]="{
+            'error':form.get('user.phone')?.invalid && form.get('user.phone')?.touched
+            }">
+            <label>Phone*</label>
+            <input type="text" class="form-control" [formControlName]="'phone'">
+            <p *ngIf="form.get('user.phone')?.invalid && form.get('user.phone')?.touched">Wrong Phone number</p>
+        </div>
+    </fieldset>
+    <fieldset [formGroupName]="'delivery'" [disabled]="form.get('user')?.invalid">
+        <div class="radio" *ngFor="let todelivery of deliveries">
+          <label>
+            <input type="radio" [formControlName]="'todelivery'" [value]="todelivery.type"
+            [ngModel]="defaultDelivery"> {{todelivery.text}}
+          </label>
+        </div>
+        <div class="form-group">
+            <label>Adress</label>
+            <input type="text" class="form-control" [formControlName]="'adress'">
+        </div>
+        </fieldset>
+        <fieldset [formGroupName]="'payment'" [disabled]="form.get('delivery')?.invalid">
+            <div class="radio" *ngFor="let topayment of payments">
+                <label>
+                  <input type="radio" [formControlName]="'topayment'" [value]="topayment.type"
+                  [ngModel]="defaultPayment"> {{topayment.text}}
+                </label>
+              </div>
+              <div class="form-group">
+                  <label>Card number</label>
+                  <input type="text" class="form-control" [formControlName]="'cardnumber'">
+              </div>
+        </fieldset>
+        <button class="btn btn-success" 
+      [disabled]="form.invalid"
+      type="submit">Order</button>
+  
+    </form>
+</div>
+
+@if(isSubmited){
+    <div>
+        <pre>{{formData | json}}</pre>
+    </div>
+}

@@ -1,33 +1,37 @@
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <fieldset [formGroupName]="'user'">
-        <div class="form-group" >
-          <label>Email</label>
-          <input type="email" class="form-control" [formControlName]="'email'">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <fieldset [formGroupName]="'user'">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" [formControlName]="'email'">
+        <div *ngIf="form.get('user.email')?.invalid && (form.get('user.email')?.dirty || form.get('user.email')?.touched)">
+          <small class="error-message" *ngIf="form.get('user.email')?.errors?.['required']">Email обязателен</small>
+          <small class="error-message" *ngIf="form.get('user.email')?.errors?.['email']">Неверный формат email</small>
         </div>
-        <div class="form-group">
-          <label>Пароль</label>
-          <input type="password" class="form-control" [formControlName]="'pass'">
+      </div>
+      <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" class="form-control" [formControlName]="'pass'">
+        <div *ngIf="form.get('user.pass')?.invalid && (form.get('user.pass')?.dirty || form.get('user.pass')?.touched)">
+          <small class="error-message" *ngIf="form.get('user.pass')?.errors?.['required']">Пароль обязателен</small>
         </div>
-      </fieldset>
-      <fieldset [formGroupName]="'settings'" [disabled]="form.get('user')?.invalid">
-        <div class="form-group">
-          <label>Выберите язык</label>
-          <select class="form-control" [formControlName]="'lang'">
-            <option value="en">Английский</option>
-            <option value="fr">Французский</option>
-            <option value="de">Немецкий</option>
-          </select>
-        </div>
-        <div class="radio" *ngFor="let ans of answers">
-          <label>
-            <input type="radio" [formControlName]="'answ'" [value]="ans.type"> {{ans.text}}
-          </label>
-        </div>
-      </fieldset>
-      <button class="btn btn-success" 
-      [disabled]="form.invalid"
-      type="submit">Сохранить</button>
-  
-    </form>
-  </div>
+      </div>
+    </fieldset>
+    <fieldset [formGroupName]="'settings'" [disabled]="form.get('user')?.invalid">
+      <div class="form-group">
+        <label>Выберите язык</label>
+        <select class="form-control" [formControlName]="'lang'">
+          <option value="en">Английский</option>
+          <option value="fr">Французский</option>
+          <option value="de">Немецкий</option>
+        </select>
+      </div>
+      <div class="radio" *ngFor="let ans of answers">
+        <label>
+          <input type="radio" [formControlName]="'answ'" [value]="ans.type"> {{ans.text}}
+        </label>
+      </div>
+    </fieldset>
+    <button class="btn btn-success" [disabled]="form.invalid" type="submit">Сохранить</button>
+  </form>
+</div>

@@ -37,24 +37,30 @@
             [ngModel]="defaultDelivery"> {{todelivery.text}}
           </label>
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{
+          'error':form.get('delivery.adress')?.invalid && form.get('delivery.adress')?.touched
+          }">
             <label>Adress</label>
             <input type="text" class="form-control" [formControlName]="'adress'">
+            <p *ngIf="form.get('delivery.adress')?.invalid && form.get('delivery.adress')?.touched">Wrong adress</p>
         </div>
-        </fieldset>
-        <fieldset [formGroupName]="'payment'" [disabled]="form.get('delivery')?.invalid">
+      </fieldset>
+      <fieldset [formGroupName]="'payment'" [disabled]="form.get('delivery')?.invalid">
             <div class="radio" *ngFor="let topayment of payments">
                 <label>
                   <input type="radio" [formControlName]="'topayment'" [value]="topayment.type"
                   [ngModel]="defaultPayment"> {{topayment.text}}
                 </label>
               </div>
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{
+                'error':form.get('payment.cardnumber')?.invalid && form.get('payment.cardnumber')?.touched
+                }">
                   <label>Card number</label>
                   <input type="text" class="form-control" [formControlName]="'cardnumber'">
+                  <p *ngIf="form.get('payment.cardnumber')?.invalid && form.get('payment.cardnumber')?.touched">Wrong Card number format</p>
               </div>
-        </fieldset>
-        <button class="btn btn-success" 
+      </fieldset>
+      <button class="btn btn-success" 
       [disabled]="form.invalid"
       type="submit">Order</button>
   
